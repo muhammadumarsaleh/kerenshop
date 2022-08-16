@@ -29,8 +29,11 @@
                                             ?>
                                             @forelse ($products  as $product)
                                             <tr>
+                                                <?php
+                                                $picture = $product->picture;
+                                                ?>
                                                 <td>{{ $no++ }}</td>
-                                                <td>{{ $product->picture }}</td>
+                                                <td><img src="{{ asset('storage/'.$product->picture) }}" class="img-thumbnail" style="width:20%;height:10%;"></td>
                                                 <td>{{ $product->name }}</td>
                                                 <td>{{ $product->stok }}</td>
                                                 <td>{{ $product->price }}</td>

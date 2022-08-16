@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\Admin\ProductRequest;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -36,9 +40,20 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        //
+        $request->request->add(['slug' => Str::slug($request->name, '-')]);
+        $product = Product::create($request->all());
+        if($request->hasFile('picture')){
+            $path = $request->file('picture')->store('images');
+            $product->picture = $path;
+            $product->save(); 
+
+            return Redirect::route('product.index')->with('sukses', 'Product berhasil ditambahkan');
+        }
+
+        // tampilkan error perintah masukkan gambar
+        
     }
 
     /**
@@ -58,9 +73,11 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        //
+        return view('pages.admin.product.edit', [
+            'item' => $product
+        ]);
     }
 
     /**
@@ -70,9 +87,21 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, Product $product)
     {
-        //
+        $pathpoto = $product->picture;
+        if($pathpoto != null || $pathpoto != ''){
+            Storage::delete($pathpoto);
+        }
+        $product->update($request->all());
+        $product['slug'] = Str::slug($request->name, '-');
+        if($request->hasFile('picture')){
+            $path = $request->file('picture')->store('images');
+            $product->picture = $path;
+            $product->save();
+        }
+
+        return redirect::route('product.index');
     }
 
     /**
@@ -81,8 +110,14 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        //
+        $pathpoto = $product->picture;
+        if($pathpoto != null || $pathpoto != ''){
+            Storage::delete($pathpoto);
+        }
+        $product->delete();
+
+        return redirect()->route('product.index');
     }
 }

@@ -49,7 +49,7 @@
                         </li>
 
                         <li class="active-menu">
-                            <a href="/shop">Shop</a>
+                            <a href="{{ route('order.index') }}">Shop</a>
                         </li>
 
                         <li>
@@ -151,7 +151,7 @@
             </li>
 
             <li>
-                <a href="product.html">Shop</a>
+                <a href="{{ route('order.index') }}">Shop</a>
             </li>
 
             <li>

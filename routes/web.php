@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 
 /*
@@ -22,7 +23,10 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/shop', [HomeController::class, 'shop'])->name('shop');
 Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
 
+
 Route::resource('product', ProductController::class);
+
+Route::get('/order', [OrderController::class, 'index'])->name('order.index');
 
 
 
