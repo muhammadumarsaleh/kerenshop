@@ -13,4 +13,8 @@ class Product extends Model
     protected $hidden = [
 
     ];
+
+    public function orderDetail(){
+        return $this->hasMany(OrderDetail::class);
+    }
 }

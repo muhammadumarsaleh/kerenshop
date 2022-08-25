@@ -1,3 +1,23 @@
+{{-- JQUERY --}}
+<script src="{{ asset('frontend/jquery.js') }}"></script>
+
+{{-- <script>
+	$(document).ready(function(){
+		getdata()
+	});
+
+	function getdata(){
+		$.ajax({  
+			url : "{{ route('order.checkout') }}",
+			get : "GET",
+			success: function(response){
+				$('.header-cart-item').val(response)
+			}
+			 
+		})
+	}
+</script> --}}
+
 <!--===============================================================================================-->	
 <script src="{{ asset('frontend/vendor/jquery/jquery-3.2.1.min.js') }}"></script>
 <!--===============================================================================================-->
@@ -13,6 +33,7 @@
 				minimumResultsForSearch: 20,
 				dropdownParent: $(this).next('.dropDownSelect2')
 			});
+
 		})
 	</script>
 <!--===============================================================================================-->

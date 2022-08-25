@@ -7,6 +7,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use GuzzleHttp\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,10 +28,13 @@ Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
 Route::resource('product', ProductController::class);
 
 Route::get('/order', [OrderController::class, 'index'])->name('order.index');
+Route::get('/order/{product:slug}/detail', [OrderController::class, 'detail'])->name('order.detail');
+Route::post('/order/{product}/', [OrderController::class, 'order'])->name('order.order')->Middleware('auth');
+Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('order.checkout')->Middleware('auth');
 
 
 
-Route::prefix('admin') 
+Route::prefix('admin')
         ->middleware(['auth', 'admin'])
         ->group(function(){
     Route::get('/', [DashboardController::class, 'index']);

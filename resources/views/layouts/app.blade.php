@@ -11,7 +11,7 @@
 	
 	<!-- Header -->
 	@include('includes.frontend.navbar')
-
+A
 	<!-- Cart -->
 	@include('includes.frontend.cart')
 
