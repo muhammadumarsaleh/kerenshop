@@ -1,13 +1,14 @@
 <?php
 
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
-use GuzzleHttp\Middleware;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,11 +27,14 @@ Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
 
 
 Route::resource('product', ProductController::class);
+Route::resource('post', PostController::class);
 
 Route::get('/order', [OrderController::class, 'index'])->name('order.index');
 Route::get('/order/{product:slug}/detail', [OrderController::class, 'detail'])->name('order.detail');
 Route::post('/order/{product}/', [OrderController::class, 'order'])->name('order.order')->Middleware('auth');
 Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('order.checkout')->Middleware('auth');
+Route::post('/order/update/{product}', [OrderController::class, 'updateJumlah'])->name('order.update')->Middleware('auth');
+Route::delete('/order/{orderdetail}', [OrderController::class, 'delete'])->name('order.delete')->Middleware('auth');
 
 
 

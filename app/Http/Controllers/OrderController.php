@@ -26,9 +26,10 @@ class OrderController extends Controller
     public function index()
     {
         $products = Product::all();
+
         return view('pages.shop', [
             'products' => $products,
-        ]);
+       ]);
     }
 
     public function detail(Product $product)
@@ -57,7 +58,7 @@ class OrderController extends Controller
             $Order->tanggal = $tanggal;
             $Order->total_harga = 0;
             $Order->status = 0;
-            $Order->kode = mt_rand(100, 999);;
+            $Order->kode = mt_rand(100, 999);
             $Order->save();
         }
 
@@ -109,6 +110,12 @@ class OrderController extends Controller
             'order' => $order
         ]);
 
+    }
+
+    public function delete(OrderDetail $orderdetail){
+        dd($orderdetail);
+        $orderdetail->delete();
+        return redirect()->route('route.checkout');
     }
 
     // public function cart()

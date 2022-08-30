@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Models\Post;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
-use App\Http\Requests\Admin\ProductRequest;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Admin\PostRequest;
+use Illuminate\Support\Facades\Redirect;
 
-class ProductController extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +18,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
-        return view('pages.admin.product.index', [
-            'products'=> $products
+        $posts = Post::all();
+        return view('pages.admin.post.index', [
+            'posts' => $posts
         ]);
     }
 
@@ -31,7 +31,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.product.create');
+        return view('pages.admin.post.create');
     }
 
     /**
@@ -40,20 +40,25 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $request)
+    public function store(PostRequest $request)
     {
-        $request->request->add(['slug' => Str::slug($request->name, '-')]);
-        $product = Product::create($request->all());
-        if($request->hasFile('picture')){
+        $request->request->add(['slug' => Str::slug($request->title, '-')]);
+        $request->request->add([
+            'excerpt' =>
+            Str::words($request->content, 10)
+        ]);
+        $post = Post::create($request->all());
+        if ($request->hasFile('picture')) {
             $path = $request->file('picture')->store('images');
-            $product->picture = $path;
-            $product->save(); 
- 
-            return Redirect::route('product.index')->with('sukses', 'Product berhasil ditambahkan');
+            $post->picture = $path;
+            $post->save();
+
+
+            return Redirect::route('post.index')->with('sukses', 'Postingan berhasil ditambahkan');
         }
 
         // tampilkan error perintah masukkan gambar
-        
+
     }
 
     /**
@@ -73,10 +78,10 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit(Post $post)
     {
-        return view('pages.admin.product.edit', [
-            'item' => $product
+        return view('pages.admin.post.edit', [
+            'item' => $post
         ]);
     }
 
@@ -87,21 +92,22 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductRequest $request, Product $product)
+    public function update(PostRequest $request, Post $post)
     {
-        $pathpoto = $product->picture;
-        if($pathpoto != null || $pathpoto != ''){
+        $pathpoto = $post->picture;
+        if ($pathpoto != null || $pathpoto != '') {
             Storage::delete($pathpoto);
         }
-        $product->update($request->all());
-        $product['slug'] = Str::slug($request->name, '-');
-        if($request->hasFile('picture')){
+        $post->update($request->all());
+        $post['slug'] = Str::slug($request->title, '-');
+        $post['excerpt'] =Str::words($request->content, 10);
+        if ($request->hasFile('picture')) {
             $path = $request->file('picture')->store('images');
-            $product->picture = $path;
-            $product->save();
+            $post->picture = $path;
+            $post->save();
         }
 
-        return redirect::route('product.index');
+        return redirect::route('post.index');
     }
 
     /**
@@ -110,14 +116,15 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Post $post)
     {
-        $pathpoto = $product->picture;
-        if($pathpoto != null || $pathpoto != ''){
+        $pathpoto = $post->picture;
+        if ($pathpoto != null || $pathpoto != '') {
             Storage::delete($pathpoto);
         }
-        $product->delete();
+        $post->delete();
 
-        return redirect()->route('product.index');
+        return redirect()->route('post.index');
     }
 }
+

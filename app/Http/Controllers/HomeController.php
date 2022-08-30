@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,23 +17,29 @@ class HomeController extends Controller
      * @return void
      */
 
-    public function __construct()
-    {
-        if(Auth::user() == TRUE){
-            dd('umar');
-            $order = Order::where('user_id', Auth()->user()->id)->where('status', 0)->first();
-        if(empty($order)){
-           return redirect()->route('home');
-        }
+    // public function __construct()
+    // {
+        // if(Auth::check() == TRUE){
 
-        $orderdetails = OrderDetail::where('order_id', $order->id)->get();
-        dd($orderdetails);
-        return view('includes.frontend.cart', [
-            // 'order' => $order,
-            'orderdetails' => $orderdetails
-    ]);
-        }
-    }
+    //     $user = auth()->user();
+    //     dd($user);
+    //     if(!empty($user)){
+    //         dd('tidak kosong');
+    //         $order = Order::where('user_id', Auth()->user()->id)->where('status', 0)->first();
+    //     if(empty($order)){
+    //        return redirect()->route('home');
+    //     }
+
+    //     $orderdetails = OrderDetail::where('order_id', $order->id)->get();
+    //     dd($orderdetails);
+    //     return view('includes.frontend.cart', [
+    //         // 'order' => $order,
+    //         'orderdetails' => $orderdetails
+    // ]);
+        // }
+        // dd('kosong');
+
+    // }
 
     /**
      * Show the application dashboard.
@@ -40,7 +48,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('pages.home');
+        $products = Product::take(4)->get();
+        $posts = Post::OrderBy('id', 'DESC')->take(3)->get();
+        return view('pages.home', [
+            'products' => $products,
+            'posts' => $posts
+        ]);
     }
 
     public function shop(){
@@ -53,7 +66,6 @@ class HomeController extends Controller
 
     public function checkout()
     {
-
         $order = Order::where('user_id', Auth()->user()->id)->where('status', 0)->first();
         $orderdetails = OrderDetail::where('order_id', $order->id)->get();
 

@@ -26,9 +26,15 @@
     </li>
 
     <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="{{ route('post.index') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Add Post</span></a>
+    </li>
+
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ route('shop') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Back to frontend</span></a>
     </li>
 
     <!-- Divider -->
