@@ -18,16 +18,16 @@
                     @foreach($orderdetails as $od)
                     <li class="header-cart-item flex-w flex-t m-b-12">
                         <div class="header-cart-item-img">
-                            <img src="{{ asset('storage/'.$od->product->picture) }}" alt="IMG">
+                            <img src="{{ asset('storage/'.$od->product->picture ?? '') }}" alt="IMG">
                         </div>
     
                         <div class="header-cart-item-txt p-t-8">
                             <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-                                {{ $od->product->name }}
+                                {{ $od->product->name ?? '' }}
                             </a>
     
                             <span class="header-cart-item-info">
-                                {{ $od->jumlah }} x {{ number_format($od->jumlah_harga) }}
+                                {{ $od->jumlah }} x {{ number_format($od->jumlah_harga ?? '') }}
                             </span>
                         </div>
                     </li>
@@ -35,7 +35,7 @@
                     
                 @else
                 
-                <p>tidak adapi</p>
+                <p>Anda belum membuat pesanan!</p>
                     
                 @endif
             

@@ -27,12 +27,15 @@ Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
 
 
 Route::resource('product', ProductController::class);
-Route::resource('post', PostController::class);
+Route::resource('post', PostController::class)->scoped(['post' => 'slug',]);
+
+
+// perhatikan susunan route pada yang menggunakan parameter, sering tertimpa
 
 Route::get('/order', [OrderController::class, 'index'])->name('order.index');
-Route::get('/order/{product:slug}/detail', [OrderController::class, 'detail'])->name('order.detail');
-Route::post('/order/{product}/', [OrderController::class, 'order'])->name('order.order')->Middleware('auth');
 Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('order.checkout')->Middleware('auth');
+Route::get('/order/{product:slug}/', [OrderController::class, 'detail'])->name('order.detail');
+Route::post('/order/{product}/', [OrderController::class, 'order'])->name('order.order')->Middleware('auth');
 Route::post('/order/update/{product}', [OrderController::class, 'updateJumlah'])->name('order.update')->Middleware('auth');
 Route::delete('/order/{orderdetail}', [OrderController::class, 'delete'])->name('order.delete')->Middleware('auth');
 
@@ -44,4 +47,3 @@ Route::prefix('admin')
     Route::get('/', [DashboardController::class, 'index']);
 });
 Auth::routes(['verify' => true]);
-

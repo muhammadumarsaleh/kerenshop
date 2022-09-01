@@ -100,15 +100,19 @@ class OrderController extends Controller
 
     public function checkout()
     {
-
         $order = Order::where('user_id', Auth()->user()->id)->where('status', 0)->first();
-        $orderdetails = OrderDetail::where('order_id', $order->id)->get();
+        if(!empty($order)){
+            $orderdetails = OrderDetail::where('order_id', $order->id)->get();
+            return view('pages.shoping-cart', [
+                'orderdetails' => $orderdetails, 
+                'order' => $order
+            ]);
+        }
+
+        return view('pages.shoping-cart');
 
 
-        return view('pages.shoping-cart', [
-            'orderdetails' => $orderdetails, 
-            'order' => $order
-        ]);
+
 
     }
 

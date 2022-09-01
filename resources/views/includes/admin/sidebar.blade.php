@@ -32,7 +32,7 @@
     </li>
 
     <li class="nav-item active">
-        <a class="nav-link" href="{{ route('shop') }}">
+        <a class="nav-link" href="{{ route('order.index') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Back to frontend</span></a>
     </li>

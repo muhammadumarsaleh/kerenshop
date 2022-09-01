@@ -21,7 +21,7 @@
                             </div>
 
                             <div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
-                                <a href="product.html"
+                                <a href="{{ route('order.index') }}"
                                     class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
                                     Shop Now
                                 </a>
@@ -1535,8 +1535,8 @@
                 <div class="col-sm-6 col-md-4 p-b-40">
                     <div class="blog-item">
                         <div class="hov-img0">
-                            <a href="blog-detail.html">
-                                <img src="{{ asset('Storage/' .$post->picture) }}" alt="IMG-BLOG">
+                            <a href="{{ route('post.show', $post->slug) }}">
+                                <img src="{{ asset('Storage/' .$post->picture) }}" width="332px" height="231px" alt="IMG-BLOG">
                             </a>
                         </div>
 
@@ -1564,7 +1564,7 @@
                             </div>
 
                             <h4 class="p-b-12">
-                                <a href="blog-detail.html" class="mtext-101 cl2 hov-cl1 trans-04">
+                                <a href="{{ route('post.show', $post->slug) }}" class="mtext-101 cl2 hov-cl1 trans-04">
                             {{ $post->title }}
                                 </a>
                             </h4>

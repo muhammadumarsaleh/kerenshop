@@ -15,7 +15,7 @@
 			</a>
 
 			<span class="stext-109 cl4">
-				8 Inspiring Ways to Wear Dresses in the Winter
+				{{ $post->title }}
 			</span>
 		</div>
 	</div>
@@ -29,7 +29,7 @@
 					<div class="p-r-45 p-r-0-lg">
 						<!--  -->
 						<div class="wrap-pic-w how-pos5-parent">
-							<img src="images/blog-04.jpg" alt="IMG-BLOG">
+							<img src="{{ asset('storage/' .$post->picture) }}" alt="IMG-BLOG">
 
 							<div class="flex-col-c-m size-123 bg9 how-pos5">
 								<span class="ltext-107 cl2 txt-center">
@@ -50,7 +50,7 @@
 								</span>
 
 								<span>
-									22 Jan, 2018
+									{{ $post->tanggal }}
 									<span class="cl12 m-l-4 m-r-6">|</span>
 								</span>
 
@@ -69,12 +69,10 @@
 							</h4>
 
 							<p class="stext-117 cl6 p-b-26">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet est vel orci luctus sollicitudin. Duis eleifend vestibulum justo, varius semper lacus condimentum dictum. Donec pulvinar a magna ut malesuada. In posuere felis diam, vel sodales metus accumsan in. Duis viverra dui eu pharetra pellentesque. Donec a eros leo. Quisque sed ligula vitae lorem efficitur faucibus. Praesent sit amet imperdiet ante. Nulla id tellus auctor, dictum libero a, malesuada nisi. Nulla in porta nibh, id vestibulum ipsum. Praesent dapibus tempus erat quis aliquet. Donec ac purus id sapien condimentum feugiat.
+								{!! $post->content !!}
 							</p>
 
-							<p class="stext-117 cl6 p-b-26">
-								Praesent vel mi bibendum, finibus leo ac, condimentum arcu. Pellentesque sem ex, tristique sit amet suscipit in, mattis imperdiet enim. Integer tempus justo nec velit fringilla, eget eleifend neque blandit. Sed tempor magna sed congue auctor. Mauris eu turpis eget tortor ultricies elementum. Phasellus vel placerat orci, a venenatis justo. Phasellus faucibus venenatis nisl vitae vestibulum. Praesent id nibh arcu. Vivamus sagittis accumsan felis, quis vulputate
-							</p>
+			
 						</div>
 
 						<div class="flex-w flex-t p-t-16">
@@ -182,53 +180,24 @@
 							</h4>
 
 							<ul>
+								@foreach ($products as $product)
 								<li class="flex-w flex-t p-b-30">
-									<a href="#" class="wrao-pic-w size-214 hov-ovelay1 m-r-20">
-										<img src="images/product-min-01.jpg" alt="PRODUCT">
+									<a href="{{ route('order.detail', $product->slug) }}" class="wrao-pic-w size-214 hov-ovelay1 m-r-20">
+										<img src="{{ asset('storage/' .$product->picture) }}" width="90px" height="110px" alt="PRODUCT">
 									</a>
 
 									<div class="size-215 flex-col-t p-t-8">
-										<a href="#" class="stext-116 cl8 hov-cl1 trans-04">
-											White Shirt With Pleat Detail Back
+										<a href="{{ route('order.detail', $product->slug) }}" class="stext-116 cl8 hov-cl1 trans-04">
+											{{ $product->name }}
 										</a>
 
 										<span class="stext-116 cl6 p-t-20">
-											$19.00
+											{{ number_format($product->price) }}
 										</span>
 									</div>
 								</li>
-
-								<li class="flex-w flex-t p-b-30">
-									<a href="#" class="wrao-pic-w size-214 hov-ovelay1 m-r-20">
-										<img src="images/product-min-02.jpg" alt="PRODUCT">
-									</a>
-
-									<div class="size-215 flex-col-t p-t-8">
-										<a href="#" class="stext-116 cl8 hov-cl1 trans-04">
-											Converse All Star Hi Black Canvas
-										</a>
-
-										<span class="stext-116 cl6 p-t-20">
-											$39.00
-										</span>
-									</div>
-								</li>
-
-								<li class="flex-w flex-t p-b-30">
-									<a href="#" class="wrao-pic-w size-214 hov-ovelay1 m-r-20">
-										<img src="images/product-min-03.jpg" alt="PRODUCT">
-									</a>
-
-									<div class="size-215 flex-col-t p-t-8">
-										<a href="#" class="stext-116 cl8 hov-cl1 trans-04">
-											Nixon Porter Leather Watch In Tan
-										</a>
-
-										<span class="stext-116 cl6 p-t-20">
-											$17.00
-										</span>
-									</div>
-								</li>
+								@endforeach
+					
 							</ul>
 						</div>
 

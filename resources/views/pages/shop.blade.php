@@ -258,7 +258,7 @@
                         <!-- Block2 -->
                         <div class="block2">
                             <div class="block2-pic hov-img0">
-                                <img src="{{ asset('storage/' . $product->picture) }}" width="300%" height="300%"
+                                <img src="{{ asset('storage/' . $product->picture) }}" width="332px" height="375px"
                                     alt="IMG-PRODUCT">
 
                                 <a href="{{ route('order.detail', $product->slug) }}"

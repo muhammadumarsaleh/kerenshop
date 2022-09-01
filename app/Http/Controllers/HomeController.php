@@ -17,29 +17,29 @@ class HomeController extends Controller
      * @return void
      */
 
-    // public function __construct()
-    // {
-        // if(Auth::check() == TRUE){
+    public function __construct()
+    {
+        // if (Auth::check() == TRUE) {
 
-    //     $user = auth()->user();
-    //     dd($user);
-    //     if(!empty($user)){
-    //         dd('tidak kosong');
-    //         $order = Order::where('user_id', Auth()->user()->id)->where('status', 0)->first();
-    //     if(empty($order)){
-    //        return redirect()->route('home');
-    //     }
+        //     $user = auth()->user();
+        //     dd($user);
+        //     if (!empty($user)) {
+        //         dd('tidak kosong');
+        //         $order = Order::where('user_id', Auth()->user()->id)->where('status', 0)->first();
+        //         if (empty($order)) {
+        //             return redirect()->route('home');
+        //         }
 
-    //     $orderdetails = OrderDetail::where('order_id', $order->id)->get();
-    //     dd($orderdetails);
-    //     return view('includes.frontend.cart', [
-    //         // 'order' => $order,
-    //         'orderdetails' => $orderdetails
-    // ]);
+        //         $orderdetails = OrderDetail::where('order_id', $order->id)->get();
+        //         dd($orderdetails);
+        //         return view('includes.frontend.cart', [
+        //             // 'order' => $order,
+        //             'orderdetails' => $orderdetails
+        //         ]);
+        //     }
+        //     dd('kosong');
         // }
-        // dd('kosong');
-
-    // }
+    }
 
     /**
      * Show the application dashboard.
@@ -50,18 +50,39 @@ class HomeController extends Controller
     {
         $products = Product::take(4)->get();
         $posts = Post::OrderBy('id', 'DESC')->take(3)->get();
+
+
+        if (Auth::check() == TRUE) {
+            $order = Order::where('user_id', Auth()->user()->id)->where('status', 0)->first();
+            if (!empty($order)) {
+                $orderdetails = OrderDetail::where('order_id', $order->id)->get();
+                return view('pages.home', [
+                    'products' => $products,
+                    'posts' => $posts,
+                    'orderdetails' => $orderdetails,
+                    'order' => $order
+                ]);
+            }
+        }
+
         return view('pages.home', [
             'products' => $products,
-            'posts' => $posts
+            'posts' => $posts,
         ]);
     }
 
-    public function shop(){
+    public function shop()
+    {
         return view('pages.shop');
-    
     }
-    public function blog(){
-        return view('pages.blog');
+    public function blog()
+    {
+        $posts = Post::paginate(2);
+        $products = Product::take(3)->get();
+        return view('pages.blog', [
+            'posts' => $posts,
+            'products' => $products
+        ]);
     }
 
     public function checkout()
@@ -73,6 +94,5 @@ class HomeController extends Controller
             'orderdetails' => $orderdetails,
             'order' => $order
         ]);
-
     }
 }
