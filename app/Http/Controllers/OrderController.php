@@ -25,11 +25,17 @@ class OrderController extends Controller
 
     public function index()
     {
-        $products = Product::all();
 
-        return view('pages.shop', [
-            'products' => $products,
-       ]);
+        
+
+        return view('pages.shop')->with([
+            'products' => Product::latest()->filter()->get()
+            // 'cari' => $cari
+        ]);
+    }
+
+    public function search(){
+
     }
 
     public function detail(Product $product)

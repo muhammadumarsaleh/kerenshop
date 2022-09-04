@@ -6,9 +6,11 @@
         <div class="container">
             <div class="flex-w flex-sb-m p-b-52">
                 <div class="flex-w flex-l-m filter-tope-group m-tb-10">
-                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
-                        All Products
-                    </button>
+                    <a href="{{ route('order.index') }}">
+                        <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
+                            All Products
+                        </button>
+                    </a>
 
                     <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
                         Women
@@ -51,9 +53,11 @@
                         <button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
                             <i class="zmdi zmdi-search"></i>
                         </button>
-
-                        <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product"
-                            placeholder="Search">
+                        
+                        <form action="{{ route('order.index') }}">
+                            <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="cari"
+                            placeholder="Search Product" autofocus value="{{ request('search') }}">
+                        </form>
                     </div>
                 </div>
 
@@ -252,8 +256,8 @@
                 </div>
             </div>
 
-            <div class="row isotope-grid">
-                @foreach ($products as $product)
+            <div class="row isotope-grid">                  
+                @forelse ($products as $product)
                     <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item {{ $product->category->name }}">
                         <!-- Block2 -->
                         <div class="block2">
@@ -290,17 +294,20 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+                    @empty
+                    <p style="align-items: center">Product tidak ditemukan</p>
+                @endforelse
             </div>
 
 
-
+            @if (isset($products))
             <!-- Load more -->
             <div class="flex-c-m flex-w w-full p-t-45">
                 <a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
                     Load More
                 </a>
             </div>
+            @endif
 
             <!-- Modal1 -->
             {{-- <div class="wrap-modal1 js-modal1 p-t-60 p-b-20">

@@ -21,4 +21,10 @@ class Product extends Model
     public function category(){
         return $this->belongsTo(Category::class);
     }
+
+    public function scopeFilter($query){
+         if(request('cari')) {
+            return $query->where('name', 'like', '%' .request('cari'). '%');
+        }
+    }
 }

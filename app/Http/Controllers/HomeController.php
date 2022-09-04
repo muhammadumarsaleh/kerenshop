@@ -77,7 +77,7 @@ class HomeController extends Controller
     }
     public function blog()
     {
-        $posts = Post::paginate(2);
+        $posts = Post::paginate(2)->onEachSide(1)->fragment('post');
         $products = Product::take(3)->get();
         return view('pages.blog', [
             'posts' => $posts,

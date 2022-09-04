@@ -33,6 +33,27 @@
                                  </div>
                              @enderror
                         </div>
+                        
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select name="category_id" id="category" class="form-control @error('category') is-invalid
+                            @enderror" aria-label="Default select example" value="{{ old('category') }}">
+                                <option selected>Pilih Category</option>
+                                <option value="1">Woman</option>
+                                <option value="2">Baby</option>
+                                <option value="3">Men</option>
+                                <option value="4">Shoes</option>
+                                <option value="5">Watches</option>
+                                <option value="6">Bag</option>
+                                <option value="7">Beauty</option>
+                            </select>
+                            @error('category')
+                                 <div class="invalid-feedback">
+                                        {{ $message }}
+                                 </div>
+                             @enderror
+                        </div>    
+
                         <div class="form-group">
                             <label for="description">Description</label>
                              <textarea name="description" rows="10" class="d-block w-100 form-control @error('description') is-invalid
@@ -45,8 +66,16 @@
                         </div>
                         <div class="form-group">
                             <label for="size">Size</label>
-                             <input type="text" class="form-control @error('size') is-invalid
-                             @enderror" name="size" placeholder="Size" value="{{ $item->size }}">
+                             <select id="size" class="form-control @error('size') is-invalid
+                             @enderror" name="size" value="{{ $item->size }}">
+                             <option selected>Pilih size</option>
+                                <option value="All Size">All Size</option>
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                                <option value="XXL">XXL</option>
+                                </select>
                              @error('size')
                                  <div class="invalid-feedback">
                                         {{ $message }}
