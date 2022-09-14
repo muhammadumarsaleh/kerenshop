@@ -27,12 +27,13 @@ Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
 
 
 Route::resource('product', ProductController::class);
-Route::resource('post', PostController::class)->scoped(['post' => 'slug',]);
+Route::resource('post', PostController::class)->scoped(['post' => 'slug']);
 
 
 // perhatikan susunan route pada yang menggunakan parameter, sering tertimpa
 
 Route::get('/order', [OrderController::class, 'index'])->name('order.index');
+Route::get('/order/search', [OrderController::class, 'search'])->name('order.search');
 Route::get('/order/checkout', [OrderController::class, 'checkout'])->name('order.checkout')->Middleware('auth');
 Route::get('/order/{product:slug}/', [OrderController::class, 'detail'])->name('order.detail');
 Route::post('/order/{product}/', [OrderController::class, 'order'])->name('order.order')->Middleware('auth');

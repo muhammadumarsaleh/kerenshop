@@ -37,8 +37,13 @@
                         <div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-modal-search">
                             <i class="zmdi zmdi-search"></i>
                         </div>
+
+                        <form action="{{ route('order.search') }}">
+                            <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search"
+                            placeholder="Search Product" autofocus value="{{ request('search') }}">
+                        </form>
                     </div>
-                        
+                    
                     <div class="flex-c-m h-full p-l-18 p-r-25 bor5">
                         <div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 icon-header-noti js-show-cart" data-notify="2">
                             <i class="zmdi zmdi-shopping-cart"></i>
@@ -50,6 +55,7 @@
                             <i class="zmdi zmdi-menu"></i>
                         </div>
                     </div>
+
                 </div>
             </nav>
         </div>	

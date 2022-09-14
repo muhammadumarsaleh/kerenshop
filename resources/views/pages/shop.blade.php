@@ -31,6 +31,14 @@
                     <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".watches">
                         Watches
                     </button>
+
+                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".beauty">
+                        Beauty
+                    </button>
+
+                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".baby">
+                        Baby
+                    </button>
                 </div>
 
                 <div class="flex-w flex-c-m m-tb-10">
@@ -54,9 +62,9 @@
                             <i class="zmdi zmdi-search"></i>
                         </button>
                         
-                        <form action="{{ route('order.index') }}">
-                            <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="cari"
-                            placeholder="Search Product" autofocus value="{{ request('search') }}">
+                        <form action="{{ route('order.search') }}">
+                            <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search"
+                            placeholder="Search Product.." autofocus value="{{ request('search') }}">
                         </form>
                     </div>
                 </div>
@@ -71,7 +79,7 @@
 
                             <ul>
                                 <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
+                                    <a href="{{ route('order.index') }}" class="filter-link stext-106 trans-04">
                                         Default
                                     </a>
                                 </li>
@@ -89,19 +97,19 @@
                                 </li>
 
                                 <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04 filter-link-active">
+                                    <a href="/order?newness=newness" class="filter-link stext-106 trans-04 filter-link-active">
                                         Newness
                                     </a>
                                 </li>
 
                                 <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
+                                    <a href="/order?asc=asc" class="filter-link stext-106 trans-04">
                                         Price: Low to High
                                     </a>
                                 </li>
 
                                 <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
+                                    <a href="/order?desc=desc" class="filter-link stext-106 trans-04">
                                         Price: High to Low
                                     </a>
                                 </li>
@@ -121,32 +129,32 @@
                                 </li>
 
                                 <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        $0.00 - $50.00
+                                    <a href="/order?pmin=0&pmax=50000" class="filter-link stext-106 trans-04">
+                                        Rp0 rb - Rp50 rb
+                                    </a>
+                                </li>
+
+                                <li class="p-b-6">
+                                    <a href="/order?pmax=100000&pmin=50000" class="filter-link stext-106 trans-04">
+                                        Rp50 rb - Rp100 rb
                                     </a>
                                 </li>
 
                                 <li class="p-b-6">
                                     <a href="#" class="filter-link stext-106 trans-04">
-                                        $50.00 - $100.00
+                                        Rp100 rb - Rp150 rb
                                     </a>
                                 </li>
 
                                 <li class="p-b-6">
                                     <a href="#" class="filter-link stext-106 trans-04">
-                                        $100.00 - $150.00
+                                        Rp150 rb - Rp200 rb
                                     </a>
                                 </li>
 
                                 <li class="p-b-6">
                                     <a href="#" class="filter-link stext-106 trans-04">
-                                        $150.00 - $200.00
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="#" class="filter-link stext-106 trans-04">
-                                        $200.00+
+                                        Rp200+ rb
                                     </a>
                                 </li>
                             </ul>

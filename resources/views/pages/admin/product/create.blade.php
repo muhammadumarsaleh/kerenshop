@@ -38,7 +38,7 @@
                             <select name="category_id" id="category" class="form-control @error('category') is-invalid
                             @enderror" aria-label="Default select example" value="{{ old('category') }}">
                                 <option selected>Pilih Category</option>
-                                <option value="1">Woman</option>
+                                <option value="1">Women</option>
                                 <option value="2">Baby</option>
                                 <option value="3">Men</option>
                                 <option value="4">Shoes</option>

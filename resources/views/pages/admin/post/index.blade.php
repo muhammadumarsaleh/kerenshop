@@ -5,9 +5,9 @@
 
                         <!-- Page Heading -->
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Product</h1>
+                            <h1 class="h3 mb-0 text-gray-800">Postingan</h1>
                             <a href="{{ route('post.create') }}" class="btn btn-sm btn-primary shadow-sm">
-                            <i class="fas fa-plus fa-sm text-white-50"></i>Tambah Product
+                            <i class="fas fa-plus fa-sm text-white-50"></i>Tambah Post
                             </a>
                         </div>
 
@@ -36,10 +36,10 @@
                                                 <td>{{ $post->title }}</td>
                                                 <td>{{ $post->excerpt }}</td>
                                                 <td>
-                                                    <a href="{{ route('post.edit', $post->id) }}" class="btn btn-info">
+                                                    <a href="{{ route('post.edit', $post->slug) }}" class="btn btn-info">
                                                         <i class="fa fa-pencil-alt"></i>
                                                     </a>
-                                                    <form action="{{ route('post.destroy', $post->id) }}" method="POST" class="d-inline">
+                                                    <form action="{{ route('post.destroy', $post->slug) }}" method="POST" class="d-inline">
                                                         @csrf
                                                         @method('delete')
                                                         <button class="btn btn-danger">

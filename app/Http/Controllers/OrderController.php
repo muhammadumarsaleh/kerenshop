@@ -12,30 +12,35 @@ use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
-    // public function __construct()
-    // {$od 
-    //     $order = Order::where('user_id', Auth()->user()->id)->where('status', 0)->first();
-    //     $orderdetails = OrderDetail::where('order_id', $order->id)->get();
-
-    //     return view('includes.frontend.cart', [
-    //         'order' => $order,
-    //         'orderdetails' => $orderdetails
-    //     ]);
-    // }
 
     public function index()
     {
 
-        
+        if(request('asc')){
+            $products = Product::orderBy('price', 'asc')->get();
+        }elseif(request('desc')){
+            $products = Product::orderBy('price', 'desc')->get();
+        }elseif(request('newness')){
+            $products = Product::latest()->get();
+        }else{
+            /* sort price using query scope */
+            $products = Product::sortprice()->get();
 
-        return view('pages.shop')->with([
-            'products' => Product::latest()->filter()->get()
-            // 'cari' => $cari
+            // $products = Product::sortprice(['sortprice'])->get();
+        }
+        //
+        return view('pages.shop', [
+            'products' => $products
         ]);
     }
 
-    public function search(){
 
+    public function search(){
+        // USING QUERY SCOPE WITH MODEL
+        // querynya dilakukan di model product
+        return view('pages.shop')->with([
+            'products' => Product::latest()->filter(request(['search']))->get(),
+        ]);
     }
 
     public function detail(Product $product)
